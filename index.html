@@ -238,6 +238,7 @@
     box-shadow:
       0 0 10px rgba(79, 178, 255, 0.25),
       inset 0 0 12px rgba(79, 178, 255, 0.08);
+    animation: seq-glow-blue 6s ease-in-out infinite;
   }
   .btn-blue:hover,
   .btn-blue:focus-visible {
@@ -249,6 +250,21 @@
       0 0 52px rgba(79, 178, 255, 0.3),
       inset 0 0 16px rgba(79, 178, 255, 0.15);
     transform: translateY(-2px);
+    animation-play-state: paused;
+  }
+
+   @keyframes seq-glow-blue {
+    0%, 63%, 100% {
+      box-shadow:
+        0 0 10px rgba(79, 178, 255, 0.25),
+        inset 0 0 12px rgba(79, 178, 255, 0.08);
+    }
+    75%, 91% {
+      box-shadow:
+        0 0 22px rgba(79, 178, 255, 0.55),
+        0 0 52px rgba(79, 178, 255, 0.3),
+        inset 0 0 16px rgba(79, 178, 255, 0.15);
+    }
   }
 
    /* IPA Install — white neon */
@@ -258,6 +274,7 @@
     box-shadow:
       0 0 8px rgba(238, 244, 255, 0.15),
       inset 0 0 12px rgba(238, 244, 255, 0.05);
+    animation: seq-glow-white 6s ease-in-out infinite;
   }
   .btn-white:hover,
   .btn-white:focus-visible {
@@ -268,6 +285,21 @@
       0 0 48px rgba(255, 255, 255, 0.32),
       inset 0 0 16px rgba(255, 255, 255, 0.14);
     transform: translateY(-2px);
+    animation-play-state: paused;
+  }
+
+   @keyframes seq-glow-white {
+    0%, 30%, 63%, 100% {
+      box-shadow:
+        0 0 8px rgba(238, 244, 255, 0.15),
+        inset 0 0 12px rgba(238, 244, 255, 0.05);
+    }
+    42%, 58% {
+      box-shadow:
+        0 0 20px rgba(255, 255, 255, 0.65),
+        0 0 48px rgba(255, 255, 255, 0.32),
+        inset 0 0 16px rgba(255, 255, 255, 0.14);
+    }
   }
 
    /* APK Install — green neon with movement */
@@ -277,7 +309,7 @@
     box-shadow:
       0 0 10px rgba(77, 255, 160, 0.25),
       inset 0 0 12px rgba(77, 255, 160, 0.08);
-    animation: pulse-green 2.8s ease-in-out infinite;
+    animation: seq-glow-green 6s ease-in-out infinite;
   }
   .btn-green:hover,
   .btn-green:focus-visible {
@@ -292,17 +324,17 @@
     animation-play-state: paused;
   }
 
-   @keyframes pulse-green {
-    0%, 100% {
+   @keyframes seq-glow-green {
+    0%, 30%, 100% {
       box-shadow:
-        0 0 10px rgba(77, 255, 160, 0.22),
-        inset 0 0 12px rgba(77, 255, 160, 0.06);
+        0 0 10px rgba(77, 255, 160, 0.25),
+        inset 0 0 12px rgba(77, 255, 160, 0.08);
     }
-    50% {
+    9%, 21% {
       box-shadow:
-        0 0 20px rgba(77, 255, 160, 0.42),
-        0 0 8px rgba(77, 255, 160, 0.3),
-        inset 0 0 14px rgba(77, 255, 160, 0.12);
+        0 0 24px rgba(77, 255, 160, 0.65),
+        0 0 56px rgba(77, 255, 160, 0.34),
+        inset 0 0 16px rgba(77, 255, 160, 0.16);
     }
   }
 
