@@ -1,88 +1,357 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delta Executor - iOS & Android</title>
-    <style>
-        body {
-            background-color: #0d1117;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: #161b22;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-        }
-        h1 {
-            color: #58a6ff;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        p {
-            color: #8b949e;
-            margin-bottom: 30px;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-        .btn-direct { background: #d29922; color: #000; }
-        .btn-ipa { background: #238636; color: #fff; }
-        .btn-apk { background: #1f6feb; color: #fff; }
-        .btn:hover { opacity: 0.8; transform: scale(1.02); }
-        
-        .ad-container {
-            margin: 20px 0;
-            padding: 15px;
-            background: #21262d;
-            border: 2px dashed #30363d;
-            border-radius: 8px;
-            color: #8b949e;
-            font-size: 0.9rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delta Executor</title>
+<meta name="description" content="Delta Executor — instalación directa para iOS y Android.">
+
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
+
+ <style>
+  :root {
+    --bg-0: #060911;
+    --bg-1: #0b101c;
+    --panel: rgba(15, 21, 35, 0.55);
+    --edge: rgba(120, 170, 255, 0.16);
+
+     --blue: #4fb2ff;
+    --blue-soft: #8fd4ff;
+    --white-neon: #eef4ff;
+    --green: #4dffa0;
+    --green-deep: #1fdf82;
+
+     --text-dim: #90a0bd;
+  }
+
+   * { box-sizing: border-box; }
+
+   html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+   body {
+    background: var(--bg-0);
+    color: var(--white-neon);
+    font-family: 'Sora', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+    isolation: isolate;
+  }
+
+   /* ---------- Ambient background ---------- */
+
+   .backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse 60% 45% at 50% 8%, rgba(79, 178, 255, 0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg-1) 0%, var(--bg-0) 55%, #04060b 100%);
+  }
+
+   .grid-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(120, 170, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120, 170, 255, 0.05) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 85%);
+  }
+
+   .orb {
+    position: fixed;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.55;
+    background: radial-gradient(circle, rgba(79, 178, 255, 0.9) 0%, rgba(79, 178, 255, 0) 70%);
+    will-change: transform;
+  }
+
+   .orb-a { width: 480px; height: 480px; top: -160px; left: -120px; animation: drift-a 22s ease-in-out infinite; }
+  .orb-b { width: 380px; height: 380px; bottom: -140px; right: -80px; animation: drift-b 26s ease-in-out infinite; }
+  .orb-c {
+    width: 320px; height: 320px; top: 45%; left: 60%;
+    background: radial-gradient(circle, rgba(143, 212, 255, 0.7) 0%, rgba(143, 212, 255, 0) 70%);
+    animation: drift-c 30s ease-in-out infinite;
+  }
+
+   @keyframes drift-a {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(120px, 90px); }
+  }
+  @keyframes drift-b {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-100px, -70px); }
+  }
+  @keyframes drift-c {
+    0%, 100% { transform: translate(-40px, 0) scale(1); }
+    50% { transform: translate(60px, -60px) scale(1.15); }
+  }
+
+   .scanline {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.012) 0px,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+   /* ---------- Layout ---------- */
+
+   .stage {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 64px 24px;
+    width: 100%;
+    max-width: 720px;
+  }
+
+   .kicker {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 12.5px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--blue-soft);
+    opacity: 0.75;
+    margin: 0 0 18px;
+  }
+
+   .kicker::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 8px 2px rgba(79, 178, 255, 0.9);
+    vertical-align: middle;
+    animation: blink 2.4s ease-in-out infinite;
+  }
+
+   @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+   h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    letter-spacing: 0.02em;
+    line-height: 1.02;
+    margin: 0;
+    color: #f4f8ff;
+    text-shadow:
+      0 0 18px rgba(79, 178, 255, 0.55),
+      0 0 46px rgba(79, 178, 255, 0.28);
+  }
+
+   h1 span {
+    background: linear-gradient(180deg, var(--blue-soft) 0%, var(--blue) 60%, #2a7fd6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+   .tagline {
+    margin: 20px 0 56px;
+    font-size: 15px;
+    color: var(--text-dim);
+    letter-spacing: 0.02em;
+    max-width: 460px;
+  }
+
+   /* ---------- Buttons ---------- */
+
+   .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+    max-width: 340px;
+  }
+
+   .btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 17px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(10, 14, 24, 0.6);
+    backdrop-filter: blur(6px);
+    border: 1px solid transparent;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.35s ease,
+                background 0.35s ease,
+                border-color 0.35s ease;
+  }
+
+   .btn:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+   .btn .glyph {
+    font-size: 15px;
+    line-height: 1;
+  }
+
+   /* Direct Install — blue neon */
+  .btn-blue {
+    color: var(--blue-soft);
+    border-color: rgba(79, 178, 255, 0.45);
+    box-shadow:
+      0 0 10px rgba(79, 178, 255, 0.25),
+      inset 0 0 12px rgba(79, 178, 255, 0.08);
+  }
+  .btn-blue:hover,
+  .btn-blue:focus-visible {
+    color: #eaf6ff;
+    background: rgba(79, 178, 255, 0.08);
+    border-color: var(--blue);
+    box-shadow:
+      0 0 22px rgba(79, 178, 255, 0.55),
+      0 0 52px rgba(79, 178, 255, 0.3),
+      inset 0 0 16px rgba(79, 178, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+   /* IPA Install — white neon */
+  .btn-white {
+    color: #f4f7fb;
+    border-color: rgba(238, 244, 255, 0.3);
+    box-shadow:
+      0 0 8px rgba(238, 244, 255, 0.15),
+      inset 0 0 12px rgba(238, 244, 255, 0.05);
+  }
+  .btn-white:hover,
+  .btn-white:focus-visible {
+    background: rgba(238, 244, 255, 0.08);
+    border-color: #ffffff;
+    box-shadow:
+      0 0 20px rgba(255, 255, 255, 0.65),
+      0 0 48px rgba(255, 255, 255, 0.32),
+      inset 0 0 16px rgba(255, 255, 255, 0.14);
+    transform: translateY(-2px);
+  }
+
+   /* APK Install — green neon with movement */
+  .btn-green {
+    color: var(--green);
+    border-color: rgba(77, 255, 160, 0.4);
+    box-shadow:
+      0 0 10px rgba(77, 255, 160, 0.25),
+      inset 0 0 12px rgba(77, 255, 160, 0.08);
+    animation: pulse-green 2.8s ease-in-out infinite;
+  }
+  .btn-green:hover,
+  .btn-green:focus-visible {
+    color: #eafff3;
+    background: rgba(77, 255, 160, 0.08);
+    border-color: var(--green-deep);
+    box-shadow:
+      0 0 24px rgba(77, 255, 160, 0.65),
+      0 0 56px rgba(77, 255, 160, 0.34),
+      inset 0 0 16px rgba(77, 255, 160, 0.16);
+    transform: translateY(-2px);
+    animation-play-state: paused;
+  }
+
+   @keyframes pulse-green {
+    0%, 100% {
+      box-shadow:
+        0 0 10px rgba(77, 255, 160, 0.22),
+        inset 0 0 12px rgba(77, 255, 160, 0.06);
+    }
+    50% {
+      box-shadow:
+        0 0 20px rgba(77, 255, 160, 0.42),
+        0 0 8px rgba(77, 255, 160, 0.3),
+        inset 0 0 14px rgba(77, 255, 160, 0.12);
+    }
+  }
+
+   footer {
+    margin-top: 52px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: rgba(144, 160, 189, 0.55);
+    text-transform: uppercase;
+  }
+
+   @media (max-width: 480px) {
+    .stage { padding: 48px 20px; }
+    .btn { font-size: 14.5px; padding: 15px 22px; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="ad-container">
-            [ Espacio para tu código de anuncios / Banner ]
-        </div>
+   <div class="backdrop"></div>
+  <div class="grid-overlay"></div>
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="scanline"></div>
 
-        <h1>Delta Executor</h1>
-        <p>Instalación nativa directa para iOS y Android.</p>
+   <main class="stage">
+    <p class="kicker">Universal Script Executor</p>
 
-        <a href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist" class="btn btn-direct">
-            ⚡ DIRECT INSTALL
-        </a>
+     <h1>Delta <span>Executor</span></h1>
 
-        <a href="https://cdn.glopdelivery.com/file/Delta-2.729.838.ipa" download="Delta.ipa" class="btn btn-ipa">
-            🍏 IPA INSTALL
-        </a>
+     <p class="tagline">Instalación nativa directa para iOS y Android, sin redirecciones ni ventanas intermedias.</p>
 
-        <a href="https://delta.filenetwork.vip/file/Delta-2.729.840.apk" download="Delta.apk" class="btn btn-apk">
-            🤖 APK INSTALL
-        </a>
+     <nav class="buttons">
+      <a
+        class="btn btn-blue"
+        href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist"
+      >
+        <span class="glyph">&#9889;</span>
+        Direct Install
+      </a>
 
-        <div class="ad-container">
-            [ Espacio para tu código de anuncios / Banner ]
-        </div>
-    </div>
+       <a class="btn btn-white" href="ipa.html">
+        <span class="glyph">&#9670;</span>
+        IPA Install
+      </a>
 
-</body>
+       <a class="btn btn-green" href="android.html">
+        <span class="glyph">&#9654;</span>
+        APK Install
+      </a>
+    </nav>
+
+     <footer>Delta Executor &middot; iOS &amp; Android</footer>
+  </main>
+
+ </body>
 </html>
