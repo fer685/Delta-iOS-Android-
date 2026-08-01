@@ -415,6 +415,100 @@
     .stage { padding: 48px 20px; }
     .btn { font-size: 14.5px; padding: 15px 22px; }
   }
+
+   /* ---------- Status panel (nuevo) ---------- */
+
+   .status-panel {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 34px;
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 14px;
+    padding: 20px 22px;
+    text-align: left;
+    backdrop-filter: blur(6px);
+    box-shadow:
+      0 0 14px rgba(79, 178, 255, 0.12),
+      inset 0 0 16px rgba(79, 178, 255, 0.04);
+  }
+
+   .status-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue-soft);
+    margin: 0 0 14px;
+  }
+
+   .status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    margin-bottom: 10px;
+  }
+
+   .status-row:last-child {
+    margin-bottom: 0;
+  }
+
+   .status-label {
+    font-weight: 600;
+    color: var(--white-neon);
+  }
+
+   .status-value {
+    color: var(--text-dim);
+    font-weight: 400;
+  }
+
+   /* Reusable blinking status dot — swap the class (dot-green / dot-red / dot-yellow)
+     on any .status-dot element to change its color. No other markup changes needed. */
+  .status-dot {
+    width: 9px;
+    height: 9px;
+    min-width: 9px;
+    border-radius: 50%;
+    animation: dot-blink 1.8s ease-in-out infinite;
+  }
+
+   .status-dot.dot-green {
+    background: var(--green);
+    color: var(--green);
+  }
+  .status-dot.dot-red {
+    background: #ff5050;
+    color: #ff5050;
+  }
+  .status-dot.dot-yellow {
+    background: #ffd84d;
+    color: #ffd84d;
+  }
+
+   @keyframes dot-blink {
+    0%, 100% {
+      opacity: 1;
+      box-shadow: 0 0 6px 2px currentColor;
+    }
+    50% {
+      opacity: 0.35;
+      box-shadow: 0 0 2px 0 currentColor;
+    }
+  }
+
+   @media (min-width: 1000px) {
+    .status-panel {
+      position: fixed;
+      left: 42px;
+      top: 52%;
+      transform: translateY(-50%);
+      margin: 0;
+      z-index: 5;
+    }
+  }
 </style>
 </head>
 <body>
@@ -432,6 +526,28 @@
      <h1>Delta <span>Executor</span></h1>
 
      <p class="tagline">The best Direct Install for iOS and Android.</p>
+
+     <div class="status-panel">
+      <p class="status-title">Current Status</p>
+
+       <div class="status-row">
+        <span class="status-dot dot-green"></span>
+        <span class="status-label">iOS:</span>
+        <span class="status-value">Working and Undetected</span>
+      </div>
+
+       <div class="status-row">
+        <span class="status-dot dot-green"></span>
+        <span class="status-label">IPA:</span>
+        <span class="status-value">Updated</span>
+      </div>
+
+       <div class="status-row">
+        <span class="status-dot dot-green"></span>
+        <span class="status-label">Android:</span>
+        <span class="status-value">Working and Undetected</span>
+      </div>
+    </div>
 
      <nav class="buttons">
       <a
