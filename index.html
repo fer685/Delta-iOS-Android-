@@ -418,10 +418,18 @@
 
    /* ---------- Status panel (nuevo) ---------- */
 
+   .install-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 28px;
+    width: 100%;
+  }
+
    .status-panel {
     width: 100%;
-    max-width: 300px;
-    margin: 0 auto 34px;
+    max-width: 280px;
     background: var(--panel);
     border: 1px solid var(--edge);
     border-radius: 14px;
@@ -499,15 +507,14 @@
     }
   }
 
-   @media (min-width: 768px) {
+   @media (max-width: 640px) {
     .status-panel {
-      position: fixed;
-      left: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 20;
-      margin: 0;
+      max-width: 340px;
+      padding: 16px 18px;
     }
+    .status-title { font-size: 11.5px; margin-bottom: 12px; }
+    .status-row { font-size: 12.5px; gap: 9px; margin-bottom: 9px; }
+    .status-dot { width: 8px; height: 8px; min-width: 8px; }
   }
 </style>
 </head>
@@ -527,47 +534,49 @@
 
      <p class="tagline">The best Direct Install for iOS and Android.</p>
 
-     <div class="status-panel">
-      <p class="status-title">Current Status</p>
+     <div class="install-row">
+      <nav class="buttons">
+        <a
+          class="btn btn-blue"
+          href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist"
+        >
+          <span class="glyph">&#9889;</span>
+          Direct Install
+        </a>
 
-       <div class="status-row">
-        <span class="status-dot dot-green"></span>
-        <span class="status-label">iOS:</span>
-        <span class="status-value">Working and Undetected</span>
-      </div>
+         <a class="btn btn-white" href="https://cdn.glopdelivery.com/file/Delta-2.729.838.ipa">
+          <span class="glyph">&#9670;</span>
+          IPA Install
+        </a>
 
-       <div class="status-row">
-        <span class="status-dot dot-green"></span>
-        <span class="status-label">IPA:</span>
-        <span class="status-value">Updated</span>
-      </div>
+         <a class="btn btn-green" href="https://delta.filenetwork.vip/file/Delta-2.729.840.apk">
+          <span class="glyph">&#9654;</span>
+          APK Install
+        </a>
+      </nav>
 
-       <div class="status-row">
-        <span class="status-dot dot-green"></span>
-        <span class="status-label">Android:</span>
-        <span class="status-value">Working and Undetected</span>
+       <div class="status-panel" id="statusPanel">
+        <p class="status-title">Current Status</p>
+
+         <div class="status-row">
+          <span class="status-dot dot-green"></span>
+          <span class="status-label">iOS:</span>
+          <span class="status-value">Working and Undetected</span>
+        </div>
+
+         <div class="status-row">
+          <span class="status-dot dot-green"></span>
+          <span class="status-label">IPA:</span>
+          <span class="status-value">Updated</span>
+        </div>
+
+         <div class="status-row">
+          <span class="status-dot dot-green"></span>
+          <span class="status-label">Android:</span>
+          <span class="status-value">Working and Undetected</span>
+        </div>
       </div>
     </div>
-
-     <nav class="buttons">
-      <a
-        class="btn btn-blue"
-        href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist"
-      >
-        <span class="glyph">&#9889;</span>
-        Direct Install
-      </a>
-
-       <a class="btn btn-white" href="https://cdn.glopdelivery.com/file/Delta-2.729.838.ipa">
-        <span class="glyph">&#9670;</span>
-        IPA Install
-      </a>
-
-       <a class="btn btn-green" href="https://delta.filenetwork.vip/file/Delta-2.729.840.apk">
-        <span class="glyph">&#9654;</span>
-        APK Install
-      </a>
-    </nav>
 
      <footer>Delta Executor &middot; iOS &amp; Android</footer>
   </main>
