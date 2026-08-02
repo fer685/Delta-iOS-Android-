@@ -235,107 +235,51 @@
   .btn-blue {
     color: var(--blue-soft);
     border-color: rgba(79, 178, 255, 0.45);
-    box-shadow:
-      0 0 10px rgba(79, 178, 255, 0.25),
-      inset 0 0 12px rgba(79, 178, 255, 0.08);
-    animation: seq-glow-blue 6s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(79, 178, 255, 0.25), inset 0 0 12px rgba(79, 178, 255, 0.08);
+    animation: seq-glow-blue 12s ease-in-out infinite;
   }
-  .btn-blue:hover,
-  .btn-blue:focus-visible {
-    color: #eaf6ff;
-    background: rgba(79, 178, 255, 0.08);
-    border-color: var(--blue);
-    box-shadow:
-      0 0 22px rgba(79, 178, 255, 0.55),
-      0 0 52px rgba(79, 178, 255, 0.3),
-      inset 0 0 16px rgba(79, 178, 255, 0.15);
-    transform: translateY(-2px);
-    animation-play-state: paused;
+  .btn-blue:hover, .btn-blue:focus-visible {
+    color: #eaf6ff; background: rgba(79, 178, 255, 0.08); border-color: var(--blue);
+    box-shadow: 0 0 22px rgba(79, 178, 255, 0.55), 0 0 52px rgba(79, 178, 255, 0.3), inset 0 0 16px rgba(79, 178, 255, 0.15);
+    transform: translateY(-2px); animation-play-state: paused;
   }
-
-   @keyframes seq-glow-blue {
-    0%, 63%, 100% {
-      box-shadow:
-        0 0 10px rgba(79, 178, 255, 0.25),
-        inset 0 0 12px rgba(79, 178, 255, 0.08);
-    }
-    75%, 91% {
-      box-shadow:
-        0 0 22px rgba(79, 178, 255, 0.55),
-        0 0 52px rgba(79, 178, 255, 0.3),
-        inset 0 0 16px rgba(79, 178, 255, 0.15);
-    }
+  @keyframes seq-glow-blue {
+    0%, 44%, 69%, 100% { box-shadow: 0 0 10px rgba(79, 178, 255, 0.25), inset 0 0 12px rgba(79, 178, 255, 0.08); }
+    50%, 63%            { box-shadow: 0 0 22px rgba(79, 178, 255, 0.6), 0 0 52px rgba(79, 178, 255, 0.3), inset 0 0 16px rgba(79, 178, 255, 0.15); }
   }
 
    /* IPA Install — white neon */
   .btn-white {
     color: #f4f7fb;
     border-color: rgba(238, 244, 255, 0.3);
-    box-shadow:
-      0 0 8px rgba(238, 244, 255, 0.15),
-      inset 0 0 12px rgba(238, 244, 255, 0.05);
-    animation: seq-glow-white 6s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(238, 244, 255, 0.15), inset 0 0 12px rgba(238, 244, 255, 0.05);
+    animation: seq-glow-white 12s ease-in-out infinite;
   }
-  .btn-white:hover,
-  .btn-white:focus-visible {
-    background: rgba(238, 244, 255, 0.08);
-    border-color: #ffffff;
-    box-shadow:
-      0 0 20px rgba(255, 255, 255, 0.65),
-      0 0 48px rgba(255, 255, 255, 0.32),
-      inset 0 0 16px rgba(255, 255, 255, 0.14);
-    transform: translateY(-2px);
-    animation-play-state: paused;
+  .btn-white:hover, .btn-white:focus-visible {
+    background: rgba(238, 244, 255, 0.08); border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.65), 0 0 48px rgba(255, 255, 255, 0.32), inset 0 0 16px rgba(255, 255, 255, 0.14);
+    transform: translateY(-2px); animation-play-state: paused;
+  }
+  @keyframes seq-glow-white {
+    0%, 19%, 44%, 100% { box-shadow: 0 0 8px rgba(238, 244, 255, 0.15), inset 0 0 12px rgba(238, 244, 255, 0.05); }
+    25%, 38%            { box-shadow: 0 0 20px rgba(255, 255, 255, 0.65), 0 0 48px rgba(255, 255, 255, 0.32), inset 0 0 16px rgba(255, 255, 255, 0.14); }
   }
 
-   @keyframes seq-glow-white {
-    0%, 30%, 63%, 100% {
-      box-shadow:
-        0 0 8px rgba(238, 244, 255, 0.15),
-        inset 0 0 12px rgba(238, 244, 255, 0.05);
-    }
-    42%, 58% {
-      box-shadow:
-        0 0 20px rgba(255, 255, 255, 0.65),
-        0 0 48px rgba(255, 255, 255, 0.32),
-        inset 0 0 16px rgba(255, 255, 255, 0.14);
-    }
-  }
-
-   /* APK Install — green neon with movement */
+   /* APK Install — green neon */
   .btn-green {
     color: var(--green);
     border-color: rgba(77, 255, 160, 0.4);
-    box-shadow:
-      0 0 10px rgba(77, 255, 160, 0.25),
-      inset 0 0 12px rgba(77, 255, 160, 0.08);
-    animation: seq-glow-green 6s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(77, 255, 160, 0.25), inset 0 0 12px rgba(77, 255, 160, 0.08);
+    animation: seq-glow-green 12s ease-in-out infinite;
   }
-  .btn-green:hover,
-  .btn-green:focus-visible {
-    color: #eafff3;
-    background: rgba(77, 255, 160, 0.08);
-    border-color: var(--green-deep);
-    box-shadow:
-      0 0 24px rgba(77, 255, 160, 0.65),
-      0 0 56px rgba(77, 255, 160, 0.34),
-      inset 0 0 16px rgba(77, 255, 160, 0.16);
-    transform: translateY(-2px);
-    animation-play-state: paused;
+  .btn-green:hover, .btn-green:focus-visible {
+    color: #eafff3; background: rgba(77, 255, 160, 0.08); border-color: var(--green-deep);
+    box-shadow: 0 0 24px rgba(77, 255, 160, 0.65), 0 0 56px rgba(77, 255, 160, 0.34), inset 0 0 16px rgba(77, 255, 160, 0.16);
+    transform: translateY(-2px); animation-play-state: paused;
   }
-
-   @keyframes seq-glow-green {
-    0%, 30%, 100% {
-      box-shadow:
-        0 0 10px rgba(77, 255, 160, 0.25),
-        inset 0 0 12px rgba(77, 255, 160, 0.08);
-    }
-    9%, 21% {
-      box-shadow:
-        0 0 24px rgba(77, 255, 160, 0.65),
-        0 0 56px rgba(77, 255, 160, 0.34),
-        inset 0 0 16px rgba(77, 255, 160, 0.16);
-    }
+  @keyframes seq-glow-green {
+    0%, 6%, 19%, 100% { box-shadow: 0 0 10px rgba(77, 255, 160, 0.25), inset 0 0 12px rgba(77, 255, 160, 0.08); }
+    8%, 17%           { box-shadow: 0 0 24px rgba(77, 255, 160, 0.65), 0 0 56px rgba(77, 255, 160, 0.34), inset 0 0 16px rgba(77, 255, 160, 0.16); }
   }
 
    footer {
@@ -448,9 +392,13 @@
     display: flex;
     align-items: stretch;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 40px;
     width: 100%;
+  }
+
+  @media (max-width: 780px) {
+    .install-row { flex-wrap: wrap; }
   }
 
    .status-panel {
@@ -605,30 +553,17 @@
   .btn-red {
     color: #ff6b6b;
     border-color: rgba(255, 80, 80, 0.45);
-    box-shadow:
-      0 0 10px rgba(255, 80, 80, 0.25),
-      inset 0 0 12px rgba(255, 80, 80, 0.08);
-    animation: pulse-red 2.8s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(255, 80, 80, 0.25), inset 0 0 12px rgba(255, 80, 80, 0.08);
+    animation: seq-glow-red 12s ease-in-out infinite;
   }
-  .btn-red:hover,
-  .btn-red:focus-visible {
-    color: #ffe0e0;
-    background: rgba(255, 80, 80, 0.08);
-    border-color: #ff4444;
-    box-shadow:
-      0 0 24px rgba(255, 80, 80, 0.65),
-      0 0 56px rgba(255, 80, 80, 0.34),
-      inset 0 0 16px rgba(255, 80, 80, 0.16);
-    transform: translateY(-2px);
-    animation-play-state: paused;
+  .btn-red:hover, .btn-red:focus-visible {
+    color: #ffe0e0; background: rgba(255, 80, 80, 0.08); border-color: #ff4444;
+    box-shadow: 0 0 24px rgba(255, 80, 80, 0.65), 0 0 56px rgba(255, 80, 80, 0.34), inset 0 0 16px rgba(255, 80, 80, 0.16);
+    transform: translateY(-2px); animation-play-state: paused;
   }
-  @keyframes pulse-red {
-    0%, 100% {
-      box-shadow: 0 0 10px rgba(255, 80, 80, 0.22), inset 0 0 12px rgba(255, 80, 80, 0.06);
-    }
-    50% {
-      box-shadow: 0 0 22px rgba(255, 80, 80, 0.48), 0 0 8px rgba(255, 80, 80, 0.3), inset 0 0 14px rgba(255, 80, 80, 0.12);
-    }
+  @keyframes seq-glow-red {
+    0%, 69%, 94%, 100% { box-shadow: 0 0 10px rgba(255, 80, 80, 0.25), inset 0 0 12px rgba(255, 80, 80, 0.08); }
+    75%, 88%            { box-shadow: 0 0 24px rgba(255, 80, 80, 0.65), 0 0 56px rgba(255, 80, 80, 0.34), inset 0 0 16px rgba(255, 80, 80, 0.16); }
   }
 
   /* ---------- How It Works ---------- */
@@ -697,8 +632,59 @@
     margin: 0 auto;
   }
 
-  @media (max-width: 720px) {
-    .hiw-grid { grid-template-columns: 1fr; gap: 48px; }
+  /* ---------- Why DeltaIOS ---------- */
+  .why-section {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 24px 100px;
+  }
+
+  .why-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+    background: linear-gradient(90deg, var(--blue-soft) 0%, var(--blue) 50%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 14px rgba(79, 178, 255, 0.45));
+  }
+
+  .why-subtitle {
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-dim);
+    margin: 0 0 48px;
+  }
+
+  .why-box {
+    width: 100%;
+    min-height: 220px;
+    background: rgba(10, 15, 26, 0.7);
+    border: 1px solid rgba(79, 178, 255, 0.3);
+    border-radius: 16px;
+    padding: 28px 32px;
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--white-neon);
+    backdrop-filter: blur(6px);
+    box-shadow:
+      0 0 18px rgba(79, 178, 255, 0.12),
+      inset 0 0 20px rgba(79, 178, 255, 0.04);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .why-box:hover {
+    border-color: rgba(79, 178, 255, 0.55);
+    box-shadow:
+      0 0 28px rgba(79, 178, 255, 0.22),
+      inset 0 0 20px rgba(79, 178, 255, 0.06);
   }
 </style>
 </head>
@@ -738,8 +724,9 @@
           <span class="status-dot dot-green"></span>
           <span class="status-label">Android:</span>
           <span class="status-value">Working and Undetected</span>
-        </div><div class="status-row">
-         
+        </div>
+
+        <div class="status-row">
           <span class="status-dot dot-yellow"></span>
           <span class="status-label">VNG:</span>
           <span class="status-value">Updating</span>
@@ -793,7 +780,7 @@
   </section>
 
    <section class="info-section">
-    <h2 class="features-title reveal">Why Delta?</h2>
+    <h2 class="features-title reveal">Features</h2>
     <div class="info-grid">
       <div class="info-card reveal">
         <h3 class="card-title">🛡️ Anti-ban and Undetected 100%</h3>
@@ -840,6 +827,15 @@
         <h3 class="hiw-step-title">Dominate</h3>
         <p class="hiw-step-text">Tap the Delta icon to open the script hub, search for a script, and execute instantly.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <h2 class="why-title reveal">Why DeltaIOS?</h2>
+    <p class="why-subtitle reveal">Share your thoughts or write your reason below.</p>
+    <div class="why-box reveal">
+      <!-- ✏️ EDITA ESTE TEXTO: escribe aquí lo que quieras mostrar -->
+      Escribe aquí tu texto...
     </div>
   </section>
 
