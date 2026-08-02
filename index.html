@@ -352,7 +352,33 @@
     width: 100%;
     max-width: 1080px;
     margin: 0 auto;
-    padding: 160px 24px 96px;
+    padding: 260px 24px 96px;
+  }
+
+   .features-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 48px;
+    color: #f4f8ff;
+    text-shadow:
+      0 0 14px rgba(79, 178, 255, 0.55),
+      0 0 36px rgba(79, 178, 255, 0.28);
+  }
+
+   /* Animación de aparición al hacer scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+   .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
   }
 
    .info-grid {
@@ -423,7 +449,7 @@
     align-items: stretch;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 88px;
+    gap: 40px;
     width: 100%;
   }
 
@@ -585,33 +611,59 @@
   </main>
 
    <section class="info-section">
+    <h2 class="features-title reveal">Features</h2>
     <div class="info-grid">
-      <div class="info-card">
+      <div class="info-card reveal">
         <h3 class="card-title">🛡️ Anti-ban and Undetected 100%</h3>
         <p class="card-text">Our proprietary stealth technology hooks deep into the client, ensuring your main account stays 100% safe from automated detection waves.</p>
       </div>
-      <div class="info-card">
+      <div class="info-card reveal">
         <h3 class="card-title">⚡️ Instant Execution</h3>
         <p class="card-text">Stop waiting for loading bars. Delta injects in milliseconds, getting you directly into the action without tedious waiting windows.</p>
       </div>
-      <div class="info-card">
+      <div class="info-card reveal">
         <h3 class="card-title">📜 Massive Script-Hub</h3>
         <p class="card-text">Our cloud directory contains over 10,000 verified scripts. Search directly from the exploit menu and launch a script with one tap.</p>
       </div>
-      <div class="info-card">
+      <div class="info-card reveal">
         <h3 class="card-title">🛠️ Level 8 Executor </h3>
         <p class="card-text">Experience true power. Delta is capable of executing any script flawlessly, supporting 100% UNC environment variables without crashes.</p>
       </div>
-      <div class="info-card">
+      <div class="info-card reveal">
         <h3 class="card-title">🔥 Regular Updates</h3>
         <p class="card-text">We regulary update delta daily and give the best iOS and Android Updates. Join our Discord for more support! </p>
       </div>
-      <div class="info-card">
+      <div class="info-card reveal">
         <h3 class="card-title">💾 Integrated Console</h3>
         <p class="card-text">Delta Integrated Console: Allows you to view errors in real time and debug script code directly from the application.</p>
       </div>
     </div>
   </section>
+
+   <script>
+    // Anima la aparición del título "Features" y las cards al hacer scroll.
+    (function () {
+      var targets = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(function (el) { el.classList.add('revealed'); });
+        return;
+      }
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry, i) {
+            if (entry.isIntersecting) {
+              var el = entry.target;
+              var delay = Array.prototype.indexOf.call(targets, el) % 6 * 90;
+              setTimeout(function () { el.classList.add('revealed'); }, delay);
+              observer.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+      targets.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
 
  </body>
 </html>
