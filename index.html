@@ -352,7 +352,7 @@
     width: 100%;
     max-width: 1080px;
     margin: 0 auto;
-    padding: 12px 24px 96px;
+    padding: 160px 24px 96px;
   }
 
    .info-grid {
@@ -420,20 +420,23 @@
 
    .install-row {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 28px;
+    gap: 88px;
     width: 100%;
   }
 
    .status-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
-    max-width: 280px;
+    max-width: 340px;
     background: var(--panel);
     border: 1px solid var(--edge);
     border-radius: 14px;
-    padding: 20px 22px;
+    padding: 28px 30px;
     text-align: left;
     backdrop-filter: blur(6px);
     box-shadow:
@@ -444,19 +447,19 @@
    .status-title {
     font-family: 'Chakra Petch', sans-serif;
     font-weight: 600;
-    font-size: 12.5px;
+    font-size: 14.5px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--blue-soft);
-    margin: 0 0 14px;
+    margin: 0 0 24px;
   }
 
    .status-row {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 13.5px;
-    margin-bottom: 10px;
+    gap: 12px;
+    font-size: 16px;
+    margin-bottom: 20px;
   }
 
    .status-row:last-child {
@@ -476,9 +479,9 @@
    /* Reusable blinking status dot — swap the class (dot-green / dot-red / dot-yellow)
      on any .status-dot element to change its color. No other markup changes needed. */
   .status-dot {
-    width: 9px;
-    height: 9px;
-    min-width: 9px;
+    width: 11px;
+    height: 11px;
+    min-width: 11px;
     border-radius: 50%;
     animation: dot-blink 1.8s ease-in-out infinite;
   }
@@ -535,27 +538,7 @@
      <p class="tagline">The best Direct Install for iOS and Android.</p>
 
      <div class="install-row">
-      <nav class="buttons">
-        <a
-          class="btn btn-blue"
-          href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist"
-        >
-          <span class="glyph">&#9889;</span>
-          Direct Install
-        </a>
-
-         <a class="btn btn-white" href="https://cdn.glopdelivery.com/file/Delta-2.729.838.ipa">
-          <span class="glyph">&#9670;</span>
-          IPA Install
-        </a>
-
-         <a class="btn btn-green" href="https://delta.filenetwork.vip/file/Delta-2.729.840.apk">
-          <span class="glyph">&#9654;</span>
-          APK Install
-        </a>
-      </nav>
-
-       <div class="status-panel" id="statusPanel">
+      <div class="status-panel" id="statusPanel">
         <p class="status-title">Current Status</p>
 
          <div class="status-row">
@@ -576,6 +559,26 @@
           <span class="status-value">Working and Undetected</span>
         </div>
       </div>
+
+       <nav class="buttons">
+        <a
+          class="btn btn-blue"
+          href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist"
+        >
+          <span class="glyph">&#9889;</span>
+          Direct Install
+        </a>
+
+         <a class="btn btn-white" href="https://cdn.glopdelivery.com/file/Delta-2.729.838.ipa">
+          <span class="glyph">&#9670;</span>
+          IPA Install
+        </a>
+
+         <a class="btn btn-green" href="https://delta.filenetwork.vip/file/Delta-2.729.840.apk">
+          <span class="glyph">&#9654;</span>
+          APK Install
+        </a>
+      </nav>
     </div>
 
      <footer>Delta Executor &middot; iOS &amp; Android</footer>
