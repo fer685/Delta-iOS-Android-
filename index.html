@@ -545,6 +545,66 @@
     .status-row { font-size: 12.5px; gap: 9px; margin-bottom: 9px; }
     .status-dot { width: 8px; height: 8px; min-width: 8px; }
   }
+
+  /* ---------- Stats section ---------- */
+  .stats-section {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 80px 24px 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .stat-card {
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    padding: 40px 28px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    box-shadow:
+      0 0 14px rgba(79, 178, 255, 0.1),
+      inset 0 0 20px rgba(79, 178, 255, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(79, 178, 255, 0.5);
+    box-shadow:
+      0 0 28px rgba(79, 178, 255, 0.3),
+      inset 0 0 20px rgba(79, 178, 255, 0.08);
+  }
+
+  .stat-number {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1;
+    margin: 0 0 14px;
+    background: linear-gradient(135deg, #a78bfa 0%, var(--blue) 50%, var(--green) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 0 12px rgba(79, 178, 255, 0.45));
+  }
+
+  .stat-label {
+    font-size: 15px;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+  }
+
+  @media (max-width: 640px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-card { padding: 28px 20px; }
+  }
 </style>
 </head>
 <body>
@@ -564,7 +624,7 @@
      <p class="tagline">The best Direct Install for iOS and Android.</p>
 
      <div class="install-row">
-      <div class="status-panel" id="statusPanel">
+      <div class="status-panel reveal" id="statusPanel">
         <p class="status-title">Current Status</p>
 
          <div class="status-row">
@@ -588,19 +648,19 @@
 
        <nav class="buttons">
         <a
-          class="btn btn-blue"
+          class="btn btn-blue reveal"
           href="itms-services://?action=download-manifest&url=https://delta.bz/manifest.plist"
         >
           <span class="glyph">&#9889;</span>
           Direct Install
         </a>
 
-         <a class="btn btn-white" href="https://cdn.glopdelivery.com/file/Delta-2.729.838.ipa">
+         <a class="btn btn-white reveal" href="https://cdn.glopdelivery.com/file/Delta-2.729.838.ipa">
           <span class="glyph">&#9670;</span>
           IPA Install
         </a>
 
-         <a class="btn btn-green" href="https://delta.filenetwork.vip/file/Delta-2.729.840.apk">
+         <a class="btn btn-green reveal" href="https://delta.filenetwork.vip/file/Delta-2.729.840.apk">
           <span class="glyph">&#9654;</span>
           APK Install
         </a>
@@ -609,6 +669,23 @@
 
      <footer>Delta Executor &middot; iOS &amp; Android</footer>
   </main>
+
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <p class="stat-number">2.5M+</p>
+        <p class="stat-label">Active Users</p>
+      </div>
+      <div class="stat-card reveal">
+        <p class="stat-number">10K+</p>
+        <p class="stat-label">Built-in Scripts</p>
+      </div>
+      <div class="stat-card reveal">
+        <p class="stat-number">99.9%</p>
+        <p class="stat-label">Uptime &amp; Undetected</p>
+      </div>
+    </div>
+  </section>
 
    <section class="info-section">
     <h2 class="features-title reveal">Features</h2>
@@ -641,27 +718,44 @@
   </section>
 
    <script>
-    // Anima la aparición del título "Features" y las cards al hacer scroll.
     (function () {
-      var targets = document.querySelectorAll('.reveal');
+      var allReveal = document.querySelectorAll('.reveal');
+
       if (!('IntersectionObserver' in window)) {
-        targets.forEach(function (el) { el.classList.add('revealed'); });
+        allReveal.forEach(function (el) { el.classList.add('revealed'); });
         return;
       }
+
       var observer = new IntersectionObserver(
         function (entries) {
-          entries.forEach(function (entry, i) {
-            if (entry.isIntersecting) {
-              var el = entry.target;
-              var delay = Array.prototype.indexOf.call(targets, el) % 6 * 90;
-              setTimeout(function () { el.classList.add('revealed'); }, delay);
-              observer.unobserve(el);
-            }
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            var delay = parseInt(el.getAttribute('data-delay') || 0);
+            setTimeout(function () { el.classList.add('revealed'); }, delay);
+            observer.unobserve(el);
           });
         },
-        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+        { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
       );
-      targets.forEach(function (el) { observer.observe(el); });
+
+      // Botones y status: escalonados (0, 120, 240, 360 ms)
+      var topEls = document.querySelectorAll('.btn.reveal, .status-panel.reveal');
+      topEls.forEach(function (el, i) {
+        el.setAttribute('data-delay', i * 120);
+      });
+
+      // Stats: escalonados (0, 150, 300 ms)
+      document.querySelectorAll('.stat-card.reveal').forEach(function (el, i) {
+        el.setAttribute('data-delay', i * 150);
+      });
+
+      // Cards de features: escalonados de 6 en 6 (0..450 ms)
+      document.querySelectorAll('.info-card.reveal').forEach(function (el, i) {
+        el.setAttribute('data-delay', (i % 6) * 90);
+      });
+
+      allReveal.forEach(function (el) { observer.observe(el); });
     })();
   </script>
 
