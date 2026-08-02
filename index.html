@@ -601,9 +601,104 @@
     letter-spacing: 0.03em;
   }
 
-  @media (max-width: 640px) {
-    .stats-grid { grid-template-columns: 1fr; }
-    .stat-card { padding: 28px 20px; }
+  /* ---------- Botón rojo neón ---------- */
+  .btn-red {
+    color: #ff6b6b;
+    border-color: rgba(255, 80, 80, 0.45);
+    box-shadow:
+      0 0 10px rgba(255, 80, 80, 0.25),
+      inset 0 0 12px rgba(255, 80, 80, 0.08);
+    animation: pulse-red 2.8s ease-in-out infinite;
+  }
+  .btn-red:hover,
+  .btn-red:focus-visible {
+    color: #ffe0e0;
+    background: rgba(255, 80, 80, 0.08);
+    border-color: #ff4444;
+    box-shadow:
+      0 0 24px rgba(255, 80, 80, 0.65),
+      0 0 56px rgba(255, 80, 80, 0.34),
+      inset 0 0 16px rgba(255, 80, 80, 0.16);
+    transform: translateY(-2px);
+    animation-play-state: paused;
+  }
+  @keyframes pulse-red {
+    0%, 100% {
+      box-shadow: 0 0 10px rgba(255, 80, 80, 0.22), inset 0 0 12px rgba(255, 80, 80, 0.06);
+    }
+    50% {
+      box-shadow: 0 0 22px rgba(255, 80, 80, 0.48), 0 0 8px rgba(255, 80, 80, 0.3), inset 0 0 14px rgba(255, 80, 80, 0.12);
+    }
+  }
+
+  /* ---------- How It Works ---------- */
+  .hiw-section {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 100px 24px 80px;
+  }
+
+  .hiw-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0 0 72px;
+    color: #f4f8ff;
+    text-shadow:
+      0 0 14px rgba(79, 178, 255, 0.55),
+      0 0 36px rgba(79, 178, 255, 0.28);
+  }
+
+  .hiw-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+
+  .hiw-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hiw-number {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(4rem, 8vw, 6.5rem);
+    line-height: 1;
+    margin: 0 0 16px;
+    color: rgba(79, 178, 255, 0.12);
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .hiw-step-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white-neon);
+    margin: 0 0 14px;
+    text-shadow: 0 0 10px rgba(79, 178, 255, 0.35);
+  }
+
+  .hiw-step-text {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text-dim);
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 720px) {
+    .hiw-grid { grid-template-columns: 1fr; gap: 48px; }
   }
 </style>
 </head>
@@ -659,10 +754,15 @@
           <span class="glyph">&#9670;</span>
           IPA Install
         </a>
-         
+
          <a class="btn btn-green reveal" href="https://delta.filenetwork.vip/file/Delta-2.729.840.apk">
           <span class="glyph">&#9654;</span>
           APK Install
+        </a>
+
+        <a class="btn btn-red reveal" href="https://deltaexecutor.filesadda.com/Delta%20VNG%20V727.apk">
+          <span class="glyph">&#9733;</span>
+          VNG APK
         </a>
       </nav>
     </div>
@@ -717,6 +817,27 @@
     </div>
   </section>
 
+  <section class="hiw-section">
+    <h2 class="hiw-title reveal">How It Works</h2>
+    <div class="hiw-grid">
+      <div class="hiw-step reveal">
+        <p class="hiw-number">01</p>
+        <h3 class="hiw-step-title">Download</h3>
+        <p class="hiw-step-text">Click the iOS or Android download link and install Delta directly onto your device in seconds.</p>
+      </div>
+      <div class="hiw-step reveal">
+        <p class="hiw-number">02</p>
+        <h3 class="hiw-step-title">Launch</h3>
+        <p class="hiw-step-text">Open Delta, log in to an alternate account, and open your favorite Roblox experience.</p>
+      </div>
+      <div class="hiw-step reveal">
+        <p class="hiw-number">03</p>
+        <h3 class="hiw-step-title">Dominate</h3>
+        <p class="hiw-step-text">Tap the Delta icon to open the script hub, search for a script, and execute instantly.</p>
+      </div>
+    </div>
+  </section>
+
    <script>
     (function () {
       var allReveal = document.querySelectorAll('.reveal');
@@ -753,6 +874,11 @@
       // Cards de features: escalonados de 6 en 6 (0..450 ms)
       document.querySelectorAll('.info-card.reveal').forEach(function (el, i) {
         el.setAttribute('data-delay', (i % 6) * 90);
+      });
+
+      // Steps How It Works: escalonados (0, 180, 360 ms)
+      document.querySelectorAll('.hiw-step.reveal').forEach(function (el, i) {
+        el.setAttribute('data-delay', i * 180);
       });
 
       allReveal.forEach(function (el) { observer.observe(el); });
