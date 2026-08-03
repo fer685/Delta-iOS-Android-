@@ -1387,6 +1387,9 @@ footer {
       value: defaultCode,
       language: 'lua',
       theme: 'vs-dark',
+      lineNumbers: function(lineNumber) {
+    return lineNumber + ".";
+},
       fontSize: 13,
       fontFamily: "'Courier New', monospace",
       minimap: { enabled: false },
