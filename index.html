@@ -410,6 +410,22 @@ h1 span {
   75%,88%          { box-shadow: var(--glow-red), inset 0 0 14px rgba(255,95,95,0.1); border-color: rgba(255,95,95,0.7); }
 }
 
+/* VNG iOS — Red Coral (different from APK red) */
+.btn-red-vng {
+  color: #ff7575;
+  border-color: rgba(255, 117, 117, 0.3);
+  animation: seq-glow-red-vng 12s ease-in-out infinite;
+}
+.btn-red-vng:hover, .btn-red-vng:focus-visible {
+  color: #ffc4c4; background: rgba(255, 117, 117, 0.07);
+  border-color: #ff6565; box-shadow: 0 0 18px rgba(255,117,117,0.45), 0 0 48px rgba(255,117,117,0.2);
+  transform: translateY(-2px); animation-play-state: paused;
+}
+@keyframes seq-glow-red-vng {
+  0%,69%,94%,100% { box-shadow:0 0 8px rgba(255,117,117,0.2), inset 0 0 10px rgba(255,117,117,0.06); }
+  75%,88%          { box-shadow: 0 0 18px rgba(255,117,117,0.45), 0 0 48px rgba(255,117,117,0.2), inset 0 0 14px rgba(255,117,117,0.1); border-color: rgba(255,117,117,0.7); }
+}
+
 /* ====================================================
    FOOTER
 ==================================================== */
@@ -824,7 +840,7 @@ footer {
   padding-left: 40px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .menu-button {
     display: flex;
   }
@@ -851,6 +867,137 @@ footer {
   fill: currentColor;
   filter: drop-shadow(0 0 3px currentColor);
 }
+
+/* ====================================================
+   CODE EDITOR SECTION
+==================================================== */
+.editor-section { padding: 120px 0 140px; }
+
+.code-editor {
+  position: relative;
+  margin-top: 48px;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.03);
+  background: rgba(6, 10, 20, 0.9);
+  border: 1px solid rgba(79,178,255,0.22);
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(12, 18, 34, 0.7);
+  border-bottom: 1px solid rgba(79,178,255,0.1);
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue-soft);
+}
+
+.editor-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.status-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px 1px var(--green);
+  animation: pulse-status 2s ease-in-out infinite;
+}
+
+.status-indicator.error {
+  background: #ff5f5f;
+  box-shadow: 0 0 6px 1px #ff5f5f;
+}
+
+@keyframes pulse-status {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.editor-body {
+  display: flex;
+  height: 400px;
+  background: rgba(4, 6, 14, 0.6);
+  overflow: hidden;
+}
+
+.editor-lines {
+  width: 50px;
+  padding: 16px 12px;
+  background: rgba(12, 18, 34, 0.5);
+  border-right: 1px solid rgba(79,178,255,0.1);
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(100, 130, 170, 0.5);
+  user-select: none;
+  text-align: right;
+  overflow: hidden;
+}
+
+.editor-input {
+  flex: 1;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-soft);
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: auto;
+  white-space: pre;
+  tab-size: 2;
+  -moz-tab-size: 2;
+}
+
+.editor-input::placeholder {
+  color: rgba(100, 130, 170, 0.3);
+}
+
+.editor-errors {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 95, 95, 0.08);
+  border: 1px solid rgba(255, 95, 95, 0.2);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #ff9f9f;
+  line-height: 1.5;
+  max-height: 120px;
+  overflow-y: auto;
+  display: none;
+}
+
+.editor-errors.active {
+  display: block;
+}
+
+.editor-errors-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #ff6f6f;
+}
+
+.error-line {
+  padding: 4px 0;
+  border-left: 3px solid #ff5f5f;
+  padding-left: 8px;
+  margin-bottom: 4px;
+}
 </style>
 </head>
 <body>
@@ -868,6 +1015,7 @@ footer {
   <a href="#features">Features</a>
   <a href="#how-it-works">How It Works</a>
   <a href="#why-deltaios">Why DeltaIOS?</a>
+  <a href="#code-editor">Code Editor</a>
 </nav>
 
 <main class="stage">
@@ -897,13 +1045,8 @@ footer {
         <span class="status-value">Working and Undetected</span>
       </div>
       <div class="status-row">
-        <span class="status-dot dot-green"></span>
-        <span class="status-label">VNG:</span>
-        <span class="status-value">Working and undetected</span>
-      </div>
-       <div class="status-row">
         <span class="status-dot dot-yellow"></span>
-        <span class="status-label">VNG iOS:</span>
+        <span class="status-label">VNG:</span>
         <span class="status-value">Updating</span>
       </div>
     </div>
@@ -937,7 +1080,7 @@ footer {
         </span>
         VNG APK
       </a>
-      <a class="btn btn-red reveal"
+      <a class="btn btn-red-vng reveal"
          href="itms-services://?action=download-manifest&url=https://ipas.cc/api/plist/q7l3d4">
         <span class="btn-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -1051,7 +1194,41 @@ footer {
     <div class="section-divider reveal"><span></span></div>
     <div class="why-box reveal">
       <!-- ✏️ EDITA ESTE TEXTO: escribe aquí lo que quieras mostrar -->
-      At DeltaiOS, your digital security is our absolute priority. Unlike platforms compromised by intrusive pop-ups and malicious scripts, we deliver pristine, rigorously scanned downloads. We ensure every file is entirely free of malware and viruses, offering a refined, seamless experience you can trust without reservation.
+      Escribe aquí tu texto...
+    </div>
+  </div>
+</section>
+
+<!-- CODE EDITOR -->
+<section class="editor-section" id="code-editor">
+  <div class="section-wrap">
+    <span class="section-label reveal">Test your scripts</span>
+    <h2 class="section-heading reveal">Code Editor</h2>
+    <div class="section-divider reveal"><span></span></div>
+    
+    <div class="code-editor reveal" id="codeEditor">
+      <div class="editor-header">
+        <span>JavaScript & Python Editor</span>
+        <div class="editor-status">
+          <span class="status-indicator" id="statusIndicator"></span>
+          <span id="statusText">Ready</span>
+        </div>
+      </div>
+      
+      <div class="editor-body">
+        <div class="editor-lines" id="editorLines"></div>
+        <textarea
+          class="editor-input"
+          id="editorInput"
+          placeholder="// Write your code here&#10;function hello() {&#10;  console.log('Delta Executor');&#10;}&#10;&#10;hello();"
+          spellcheck="false"
+        ></textarea>
+      </div>
+      
+      <div class="editor-errors" id="editorErrors">
+        <div class="editor-errors-title">Errors:</div>
+        <div id="errorsList"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1128,6 +1305,99 @@ footer {
     });
 
     allReveal.forEach(function (el) { observer.observe(el); });
+  })();
+
+  // Code Editor
+  (function () {
+    var editorInput = document.getElementById('editorInput');
+    var editorLines = document.getElementById('editorLines');
+    var editorErrors = document.getElementById('editorErrors');
+    var errorsList = document.getElementById('errorsList');
+    var statusIndicator = document.getElementById('statusIndicator');
+    var statusText = document.getElementById('statusText');
+
+    if (!editorInput) return;
+
+    // Update line numbers
+    function updateLineNumbers() {
+      var lines = editorInput.value.split('\n').length;
+      editorLines.innerHTML = '';
+      for (var i = 1; i <= lines + 5; i++) {
+        editorLines.innerHTML += i + '\n';
+      }
+    }
+
+    // Check for errors
+    function checkErrors() {
+      var code = editorInput.value;
+      var errors = [];
+
+      // Check for common syntax errors
+      var bracketCount = (code.match(/\{/g) || []).length - (code.match(/\}/g) || []).length;
+      var parenCount = (code.match(/\(/g) || []).length - (code.match(/\)/g) || []).length;
+      var bracketSquareCount = (code.match(/\[/g) || []).length - (code.match(/\]/g) || []).length;
+
+      if (bracketCount !== 0) {
+        errors.push('Unmatched curly braces { } — ' + (bracketCount > 0 ? 'missing }' : 'missing {'));
+      }
+      if (parenCount !== 0) {
+        errors.push('Unmatched parentheses ( ) — ' + (parenCount > 0 ? 'missing )' : 'missing ('));
+      }
+      if (bracketSquareCount !== 0) {
+        errors.push('Unmatched brackets [ ] — ' + (bracketSquareCount > 0 ? 'missing ]' : 'missing ['));
+      }
+
+      // Check for missing semicolons (basic)
+      var lines = code.split('\n');
+      lines.forEach(function (line, idx) {
+        var trimmed = line.trim();
+        if (trimmed && !trimmed.endsWith(';') && !trimmed.endsWith('{') && !trimmed.endsWith('}') && !trimmed.startsWith('//') && trimmed.length > 0) {
+          if (trimmed.match(/^(if|for|while|function|const|let|var|return|class)\b/) && !trimmed.endsWith('{')) {
+            // These usually need a body or value
+          }
+        }
+      });
+
+      // Display errors
+      if (errors.length > 0) {
+        statusIndicator.classList.add('error');
+        statusText.textContent = errors.length + ' error' + (errors.length > 1 ? 's' : '');
+        errorsList.innerHTML = '';
+        errors.forEach(function (error) {
+          var errorEl = document.createElement('div');
+          errorEl.className = 'error-line';
+          errorEl.textContent = '✖ ' + error;
+          errorsList.appendChild(errorEl);
+        });
+        editorErrors.classList.add('active');
+      } else {
+        statusIndicator.classList.remove('error');
+        statusText.textContent = 'No errors';
+        editorErrors.classList.remove('active');
+      }
+    }
+
+    // Initialize
+    updateLineNumbers();
+
+    // Events
+    editorInput.addEventListener('input', function () {
+      updateLineNumbers();
+      checkErrors();
+    });
+
+    editorInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        var start = this.selectionStart;
+        var end = this.selectionEnd;
+        var value = this.value;
+        this.value = value.substring(0, start) + '\t' + value.substring(end);
+        this.selectionStart = this.selectionEnd = start + 1;
+        updateLineNumbers();
+        checkErrors();
+      }
+    });
   })();
 </script>
 
